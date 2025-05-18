@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Stage, Layer, Rect, Group, Arrow, Circle, Text } from 'react-konva';
 import type { KonvaEventObject } from 'konva/lib/Node';
-import { CONNECTOR_OFFSET } from './constants';
-import type { DiagramBlock, Connection } from '../../store/types';
+import { CONNECTOR_OFFSET } from '../../lib/constants';
+import type { DiagramBlock, Connection } from '../../lib/types';
 
 interface DiagramCanvasProps {
   blocks: DiagramBlock[];

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { DiagramBlock, Connection } from '../../store/types';
+import type { DiagramBlock, Connection } from '../../lib/types';
 
 interface ImportExportControlsProps {
   blocks: DiagramBlock[];

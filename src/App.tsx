@@ -1,13 +1,19 @@
 import { useState } from 'react';
-import ImportExportControls from './components/import-export';
 import DiagramCanvas from './components/diagram-canvas';
-import './index.css';
-import { DIAGRAME_BASE } from './components/diagram-canvas/constants';
-import type { DiagramBlock, Connection } from './store/types';
+import ImportExportControls from './components/import-export';
+import ColorPicker from './components/color-picker';
+import { DIAGRAME_BASE } from './lib/init-state';
+import type { DiagramBlock, Connection } from './lib/types';
 
 function App() {
   const [blocks, setBlocks] = useState<DiagramBlock[]>(DIAGRAME_BASE);
   const [connections, setConnections] = useState<Connection[]>([]);
+  const [selectedColor, setSelectedColor] = useState<string>('#ffffff');
+
+  const handleColorSelect = (color: string) => {
+    setSelectedColor(color);
+    setBlocks((prev) => prev.map((block) => ({ ...block, fill: color })));
+  };
 
   return (
     <div>
@@ -15,24 +21,26 @@ function App() {
         <h2>FLOWCHARTS</h2>
       </div>
       <div className="flex items-start">
-        <aside className="flex flex-col items-start justify-start p-4  space-y-4 text-sm text-gray-700 min-w-[30vw] max-w-[30vw] w-[30vw]">
+        <aside className="flex flex-col items-start justify-start p-4 space-y-4 text-sm text-gray-700 max-w-[30vw] w-[30vw]">
           <ImportExportControls
             blocks={blocks}
-            setBlocks={setBlocks}
             connections={connections}
+            setBlocks={setBlocks}
             setConnections={setConnections}
           />
-          {/* <ColorPalete /> */}
-          <div className="text-red-700">COLOR PALETE</div>
+          <ColorPicker
+            selectedColor={selectedColor}
+            onSelect={handleColorSelect}
+          />
         </aside>
-        <main className="flex-shrink-0 w-[70vw] h-[600px] border-l border-l-gray-500 bg-gray-50 overflow-hidden">
+        <main className="max-w-[70vw] w-[70vw] border-l border-l-gray-500">
           <DiagramCanvas
             blocks={blocks}
             setBlocks={setBlocks}
             connections={connections}
             setConnections={setConnections}
             width={700}
-            height={600}
+            height={800}
           />
         </main>
       </div>
