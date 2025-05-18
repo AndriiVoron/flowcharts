@@ -40,7 +40,7 @@ function App() {
             connections={connections}
             setConnections={setConnections}
             width={700}
-            height={800}
+            height={600}
           />
         </main>
       </div>
