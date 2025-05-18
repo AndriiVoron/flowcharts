@@ -1,14 +1,22 @@
-import { Stage, Layer, Rect, Group, Arrow, Circle, Text } from 'react-konva';
 import { useState } from 'react';
-import { CONNECTOR_OFFSET, DIAGRAME_BASE } from './constants';
-import type { DiagramBlock, Connection } from '../store/types';
-
+import { Stage, Layer, Rect, Group, Arrow, Circle, Text } from 'react-konva';
 import type { KonvaEventObject } from 'konva/lib/Node';
+import { CONNECTOR_OFFSET } from './constants';
+import type { DiagramBlock, Connection } from '../../store/types';
 
-export default function DiagramCanvas() {
-  const [blocks, setBlocks] = useState<DiagramBlock[]>(DIAGRAME_BASE);
+interface DiagramCanvasProps {
+  blocks: DiagramBlock[];
+  setBlocks: React.Dispatch<React.SetStateAction<DiagramBlock[]>>;
+  connections: Connection[];
+  setConnections: React.Dispatch<React.SetStateAction<Connection[]>>;
+}
 
-  const [connections, setConnections] = useState<Connection[]>([]);
+export default function DiagramCanvas({
+  blocks,
+  setBlocks,
+  connections,
+  setConnections,
+}: DiagramCanvasProps) {
   const [isConnecting, setIsConnecting] = useState(false);
   const [connectFrom, setConnectFrom] = useState<{
     id: string;
@@ -21,7 +29,7 @@ export default function DiagramCanvas() {
   const [activeBlockId, setActiveBlockId] = useState<string | null>(null);
 
   const updateBlockPosition = (id: string, x: number, y: number) => {
-    setBlocks((prev) =>
+    setBlocks((prev: DiagramBlock[]) =>
       prev.map((block) => (block.id === id ? { ...block, x, y } : block))
     );
   };
@@ -147,7 +155,7 @@ export default function DiagramCanvas() {
   };
 
   return (
-    <div className="w-[60vw] h-[60vh]">
+    <div className="max-w-[60vw] w-[800px] h-[800px] max-h-[100vh]">
       <Stage
         width={window.innerWidth}
         height={window.innerHeight}
