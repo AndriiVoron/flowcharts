@@ -31,6 +31,8 @@ function App() {
             setBlocks={setBlocks}
             connections={connections}
             setConnections={setConnections}
+            width={700}
+            height={600}
           />
         </main>
       </div>

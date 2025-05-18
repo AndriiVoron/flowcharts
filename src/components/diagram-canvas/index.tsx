@@ -9,6 +9,8 @@ interface DiagramCanvasProps {
   setBlocks: React.Dispatch<React.SetStateAction<DiagramBlock[]>>;
   connections: Connection[];
   setConnections: React.Dispatch<React.SetStateAction<Connection[]>>;
+  width: number;
+  height: number;
 }
 
 export default function DiagramCanvas({
@@ -16,6 +18,8 @@ export default function DiagramCanvas({
   setBlocks,
   connections,
   setConnections,
+  width,
+  height,
 }: DiagramCanvasProps) {
   const [isConnecting, setIsConnecting] = useState(false);
   const [connectFrom, setConnectFrom] = useState<{
@@ -155,10 +159,10 @@ export default function DiagramCanvas({
   };
 
   return (
-    <div className="max-w-[60vw] w-[800px] h-[800px] max-h-[100vh]">
+    <div className="relative overflow-hidden">
       <Stage
-        width={window.innerWidth}
-        height={window.innerHeight}
+        width={width}
+        height={height}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseDown={() => {
@@ -169,8 +173,8 @@ export default function DiagramCanvas({
           <Rect
             x={0}
             y={0}
-            width={window.innerWidth}
-            height={window.innerHeight}
+            width={width}
+            height={height}
             fill="#f3f4f6"
             listening={false}
           />
